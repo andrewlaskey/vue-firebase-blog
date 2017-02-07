@@ -3,3 +3,4 @@ node_modules
 dist/build.js
 dist/build.css
 private.config.js
+newpost.html
