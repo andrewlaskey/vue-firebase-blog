@@ -2,8 +2,7 @@
 	<div class="post-list">
 		<ul>
 			<li v-for="post in posts">
-				<img v-bind:src="post.hero" alt=""  width="100%">
-				<h3>{{ post.title}}</h3>
+				<post :post="post"></post>
 			</li>
 		</ul>
 	</div>
@@ -11,6 +10,7 @@
 
 <script>
 import firebase from 'firebase'
+import Post from './Post.vue'
 
 export default {
 	name: 'posts',
@@ -18,6 +18,9 @@ export default {
 		return {
 			posts: []
 		}
+	},
+	components: {
+		Post
 	},
 	created: function () {
 		const postsRef = firebase.database().ref('posts')
