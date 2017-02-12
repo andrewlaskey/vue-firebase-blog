@@ -47,3 +47,17 @@ export default {
 	}
 }
 </script>
+
+<style lang="sass">
+.post-list {
+	ul {
+		margin: 0;
+		padding: 0;
+		list-style-type: none;
+	}
+
+	li {
+		margin: 0;
+	}
+}
+</style>

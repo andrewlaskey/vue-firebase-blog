@@ -1,8 +1,10 @@
 <template>
 	<div class="post">
-		<!-- <img v-bind:src="post.hero" alt=""  width="100%"> -->
+		<div class="post-img">
+			<img v-bind:src="post.hero" alt="">
+		</div>
 		<h3>{{ post.title}}</h3>
-		<div v-html="compiledMarkdown"></div>
+		<!-- <div v-html="compiledMarkdown"></div> -->
 	</div>
 </template>
 
@@ -22,3 +24,22 @@ export default {
 	}
 }
 </script>
+
+<style lang="sass">
+.post {
+	position: relative;
+}
+
+.post-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	overflow: hidden;
+
+	img {
+		width: 100%;
+	}
+}
+</style>

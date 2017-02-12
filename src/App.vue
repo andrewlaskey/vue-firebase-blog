@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" class="wrap">
     <about></about>
     <posts></posts>
   </div>
@@ -17,3 +17,15 @@ export default {
   }
 }
 </script>
+
+<style lang="sass">
+body {
+	margin: 0;
+}
+
+.wrap {
+	margin: 0 auto;
+	width: 100%;
+	max-width: 48em;
+}
+</style>
