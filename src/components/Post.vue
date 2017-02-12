@@ -1,9 +1,11 @@
 <template>
 	<div class="post">
-		<div class="post-img">
-			<img v-bind:src="post.hero" alt="">
-		</div>
-		<h3>{{ post.title}}</h3>
+		<a v-bind:class="postClass" v-bind:href="openLink" v-on:click="openPost">
+			<div class="post-img">
+				<img v-bind:src="post.hero" alt="">
+			</div>
+			<h3>{{ post.title}}</h3>
+		</a>
 		<!-- <div v-html="compiledMarkdown"></div> -->
 	</div>
 </template>
@@ -20,13 +22,32 @@ export default {
 	computed: {
 		compiledMarkdown: function () {
 			return marked(this.post.content, {sanitize: true})
+		},
+		postClass: function () {
+			return 'post-inner post-inner-' + this.post.type
+		},
+		openLink: function () {
+			if (this.post.type === 'post') {
+				return '#'
+			}
+			return this.post.content
 		}
+	},
+	openPost: function (e) {
+		if (this.post.type === 'post') {
+			e.preventDefault()
+
+			return false
+		}
+
+		return true
 	}
 }
 </script>
 
 <style lang="sass">
-.post {
+.post-inner {
+	display: block;
 	position: relative;
 }
 
