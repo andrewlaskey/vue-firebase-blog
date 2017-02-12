@@ -14,6 +14,11 @@ export default {
   components: {
     About,
     Posts
+  },
+  methods: {
+  	openPopup: function (prop) {
+  		console.log(prop)
+  	}
   }
 }
 </script>

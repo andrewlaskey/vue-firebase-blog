@@ -3,8 +3,9 @@
 		<a v-bind:class="postClass" v-bind:href="openLink" v-on:click="openPost">
 			<div class="post-img">
 				<img v-bind:src="post.hero" alt="">
+				<div class="post-img-mask" v-bind:style="{backgroundColor: this.color}"></div>
 			</div>
-			<h3>{{ post.title}}</h3>
+			<h3 class="post-title">{{ post.title }}</h3>
 		</a>
 		<!-- <div v-html="compiledMarkdown"></div> -->
 	</div>
@@ -15,7 +16,7 @@ import marked from 'marked'
 
 export default {
 	name: 'post',
-	props: ['post'],
+	props: ['post', 'color'],
 	data () {
 		return {}
 	},
@@ -33,14 +34,16 @@ export default {
 			return this.post.content
 		}
 	},
-	openPost: function (e) {
-		if (this.post.type === 'post') {
-			e.preventDefault()
+	methods: {
+		openPost: function (e) {
+			if (this.post.type === 'post') {
+				e.preventDefault()
 
-			return false
+				return false
+			}
+
+			return true
 		}
-
-		return true
 	}
 }
 </script>
@@ -49,6 +52,13 @@ export default {
 .post-inner {
 	display: block;
 	position: relative;
+	text-decoration: none;
+
+	&:hover,
+	&:focus,
+	&:active {
+		outline: none;
+	}
 }
 
 .post-img {
@@ -62,5 +72,22 @@ export default {
 	img {
 		width: 100%;
 	}
+}
+
+.post-img-mask {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	opacity: 0.6;
+}
+
+.post-title {
+	position: relative;
+	margin: 0;
+	padding: 1em;
+	text-align: center;
+	color: #fff;
 }
 </style>

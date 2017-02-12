@@ -1,8 +1,8 @@
 <template>
 	<div class="post-list">
 		<ul>
-			<li v-for="post in posts">
-				<post :post="post"></post>
+			<li v-for="(post, index) in posts">
+				<post :post="post" :color="getColor(index)"></post>
 			</li>
 		</ul>
 	</div>
@@ -11,6 +11,8 @@
 <script>
 import firebase from 'firebase'
 import Post from './Post.vue'
+
+const colors = ['#09af6d', '#48dfa4', '#48dfca']
 
 export default {
 	name: 'posts',
@@ -44,6 +46,11 @@ export default {
 		        })
 		    })
 
+	},
+	methods: {
+		getColor: function (index) {
+			return colors[index % colors.length]
+		}
 	}
 }
 </script>
