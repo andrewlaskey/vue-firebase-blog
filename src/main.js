@@ -7,7 +7,7 @@ import {CONFIG} from '../private.config.js'
 import firebase from 'firebase'
 import App from './App.vue'
 import Blog from './components/Blog.vue'
-import Hello from './components/Hello.vue'
+import AddPost from './components/AddPost.vue'
 
 const fbApp = firebase.initializeApp(CONFIG.FIREBASE)
 
@@ -20,7 +20,7 @@ const routes = [
 	},
 	{
 		path: '/add',
-		component: Hello
+		component: AddPost
 	}
 ]
 
