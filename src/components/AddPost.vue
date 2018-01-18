@@ -89,6 +89,43 @@
       <div class="container">
         <div class="columns is-centered">
           <div class="column is-half">
+            <form v-on:submit.prevent="uploadFile">
+              <h3 class="subtitle is-3">Add Images</h3>
+              <div class="field">
+                <div class="file has-name">
+                  <label class="file-label">
+                    <input class="file-input" type="file" name="resume" v-on:change="onFileChange">
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label">
+                        Choose an image…
+                      </span>
+                    </span>
+                    <span class="file-name">{{fileName}}</span>
+                  </label>
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <button class="button">Upload Image</button>
+                  <p class="help is-danger" v-show="hasError">{{errorMessage}}</p>
+                </div>
+              </div>
+            </form>
+            <div class="content">
+              <ul>
+                <li v-for="fileUrl in fileUrls"><em>{{fileUrl}}</em></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
             <p><a href="#" v-on:click.prevent="trySignOut">Log out</a></p>
           </div>
         </div>
@@ -116,7 +153,10 @@ export default {
       title: '',
       content: '',
       category: 'personal',
-      postOrLink: 'post'
+      postOrLink: 'post',
+      fileName: '',
+      inputFile: {},
+      fileUrls: []
     }
   },
   created: function () {
@@ -183,6 +223,48 @@ export default {
       firebase.database().ref('categories/' + this.category + '/' + newPostRef.key).set(true);
 
       this.success = true
+    },
+    onFileChange: function (e) {
+      var input = event.target;
+        // Ensure that you have a file before attempting to read it
+        if (input.files && input.files[0]) {
+          this.inputFile = input.files[0];
+          this.fileName = this.inputFile.name;
+        }
+    },
+    addImageToList: function (url) {
+      this.fileUrls.push(url);
+    },
+    uploadFile: function () {
+      let _this = this
+
+      if (this.inputFile.name.length === 0) {
+        return
+      }
+
+      let storageRef = firebase.storage().ref()
+      
+      let uploadTask = storageRef.child('images/' + this.inputFile.name).put(this.inputFile);
+
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
+        function(snapshot) {
+          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
+          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          console.log('Upload is ' + progress + '% done');
+          switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+              console.log('Upload is paused');
+              break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+              console.log('Upload is running');
+              break;
+          }
+        }, function(error) {
+          _this.handleError(error.message);
+        }, function() {
+          // Upload completed successfully, now we can get the download URL
+          _this.addImageToList(uploadTask.snapshot.downloadURL)
+      })
     }
   }
 }
