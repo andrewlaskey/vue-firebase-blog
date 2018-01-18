@@ -1,8 +1,10 @@
 <template>
   <div id="add-post" class="section">
+    
     <div v-show="!loggedIn" class="container">
       <div class="columns is-centered">
         <form class="column is-one-third" v-on:submit.prevent="trySignIn">
+          <h1 class="title">Log In</h1>
           <div class="field">
             <label for="email">Email</label>
             <div class="control">
@@ -24,12 +26,74 @@
         </form>
       </div>
     </div>
-    <div v-show="loggedIn" class="container">
-      <div class="columns is-centered">
-        <div class="column is-half">
-          <p><a href="#" v-on:click.prevent="trySignOut">Log out</a></p>
+    
+    <div v-show="loggedIn">
+      
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <h1 class="title">Create New Post!</h1>
+            <form v-on:submit.prevent="createPost">
+              <div class="field">
+                <label for="password">Title</label>
+                <div class="control">
+                  <input class="input" type="text" name="password" v-model="title">
+                </div>
+              </div>
+              <div class="field">
+                <label for="password">Category</label>
+                <div class="control">
+                  <div class="select" v-model="category">
+                    <select>
+                      <option v-for="category in categories">{{category}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <label class="radio">
+                    <input type="radio" name="postorlink" value="post" v-model="postOrLink">
+                    Post
+                  </label>
+                  <label class="radio">
+                    <input type="radio" name="postorlink" value="link" v-model="postOrLink">
+                    Link
+                  </label>
+                </div>
+              </div>
+              <div class="field" v-show="postOrLink == 'post'">
+                <label class="label">Content</label>
+                <div class="control">
+                  <textarea class="textarea" placeholder="### Use Markdown" v-model="content"></textarea>
+                </div>
+              </div>
+              <div class="field" v-show="postOrLink == 'link'">
+                <label for="password">Url</label>
+                <div class="control">
+                  <input class="input" type="text" name="password" v-model="content">
+                </div>
+              </div>
+              <div class="field">
+                <div class="control">
+                  <button class="button">Add Post</button>
+                  <p class="help is-danger" v-show="hasError">{{errorMessage}}</p>
+                </div>
+              </div>
+            </form>
+            <div class="notification is-primary" v-show="success">Post Added!</div>
+          </div>
         </div>
       </div>
+
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <p><a href="#" v-on:click.prevent="trySignOut">Log out</a></p>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 </template>
@@ -44,12 +108,15 @@ export default {
     return {
       loggedIn: false,
       hasError: false,
+      success: false,
       errorMessage: '',
       userEmail: '',
       password: '',
       categories: ['personal', 'work', 'thoughts', 'fun'],
       title: '',
-      content: ''
+      content: '',
+      category: 'personal',
+      postOrLink: 'post'
     }
   },
   created: function () {
@@ -101,6 +168,22 @@ export default {
         _this.handleError(error.message)
       });
     },
+    createPost: function () {
+      let _this = this
+
+      let newPostRef = firebase.database().ref('posts')
+        .push({
+          title: this.title,
+          category: this.category,
+          type: this.postOrLink,
+          content: this.content,
+          postDate: Date.now()
+        })
+
+      firebase.database().ref('categories/' + this.category + '/' + newPostRef.key).set(true);
+
+      this.success = true
+    }
   }
 }
 </script>
