@@ -35,16 +35,16 @@
             <h1 class="title">Create New Post!</h1>
             <form v-on:submit.prevent="createPost">
               <div class="field">
-                <label for="password">Title</label>
+                <label for="title">Title</label>
                 <div class="control">
-                  <input class="input" type="text" name="password" v-model="title">
+                  <input class="input" type="text" name="title" v-model="title">
                 </div>
               </div>
               <div class="field">
-                <label for="password">Category</label>
+                <label for="category">Category</label>
                 <div class="control">
                   <div class="select" v-model="category">
-                    <select>
+                    <select name="category">
                       <option v-for="category in categories">{{category}}</option>
                     </select>
                   </div>
@@ -69,9 +69,15 @@
                 </div>
               </div>
               <div class="field" v-show="postOrLink == 'link'">
-                <label for="password">Url</label>
+                <label for="url">Url</label>
                 <div class="control">
-                  <input class="input" type="text" name="password" v-model="content">
+                  <input class="input" type="text" name="url" v-model="content">
+                </div>
+              </div>
+              <div class="field">
+                <label for="thumbnail">Thumbnail</label>
+                <div class="control">
+                  <input class="input" type="text" name="thumbnail" v-model="thumbnail">
                 </div>
               </div>
               <div class="field">
@@ -114,11 +120,18 @@
                 </div>
               </div>
             </form>
-            <div class="content">
-              <ul>
-                <li v-for="fileUrl in fileUrls"><em>{{fileUrl}}</em></li>
-              </ul>
-            </div>
+            <ul style="margin-top: 2em;">
+              <li v-for="fileUrl in fileUrls">
+                <div class="card">
+                  <div class="card-image">
+                    <figure class="image">
+                      <img v-bind:src="fileUrl" alt="image" >
+                    </figure>
+                  </div>
+                  <div class="card-content"><p><em>{{fileUrl}}</em></p></div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
@@ -152,6 +165,7 @@ export default {
       categories: ['personal', 'work', 'thoughts', 'fun'],
       title: '',
       content: '',
+      thumbnail: '',
       category: 'personal',
       postOrLink: 'post',
       fileName: '',
