@@ -43,8 +43,8 @@
               <div class="field">
                 <label for="category">Category</label>
                 <div class="control">
-                  <div class="select" v-model="category">
-                    <select name="category">
+                  <div class="select">
+                    <select name="category" v-model="category">
                       <option v-for="category in categories">{{category}}</option>
                     </select>
                   </div>
@@ -231,6 +231,7 @@ export default {
           category: this.category,
           type: this.postOrLink,
           content: this.content,
+          thumbnail: this.thumbnail,
           postDate: Date.now()
         })
 
