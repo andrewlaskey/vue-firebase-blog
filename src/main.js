@@ -28,7 +28,7 @@ const router = new VueRouter({
 	routes
 })
 
-new Vue({ // eslint-disable-line no-new
+let app = new Vue({ // eslint-disable-line no-new
   el: '#app',
   router,
   template: '<app></app>',

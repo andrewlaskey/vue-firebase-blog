@@ -1,3 +1,5 @@
+<style lang="sass" src="../styles/style.scss"></style>
+
 <template>
   <div id="app" class="container">
     <router-view></router-view>

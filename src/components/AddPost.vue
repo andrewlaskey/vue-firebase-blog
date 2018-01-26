@@ -285,6 +285,6 @@ export default {
 }
 </script>
 
-<style lang="sass">
+<style lang="sass" scoped>
   @import "../../node_modules/bulma/bulma.sass";
 </style>

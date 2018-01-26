@@ -1,24 +1,59 @@
 <template>
   <div id="blog" class="wrap">
     <about></about>
-    <posts></posts>
+    <post-list :posts="posts" :openPopup="openPopup"></post-list>
+    <popup :post="selectedPost" :showPopup="showPopup" :closePopup="closePopup"></popup>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase'
 import About from './About.vue'
-import Posts from './Posts.vue'
+import PostList from './PostList.vue'
+import Popup from './Popup.vue'
 
 export default {
   name: 'blog',
   components: {
     About,
-    Posts
+    PostList,
+    Popup
+  },
+  data() {
+    return {
+      posts: [],
+      selectedPost: {},
+      showPopup: false
+    }
+  },
+  created: function () {
+    const postsRef = firebase.database().ref('posts')
+
+    postsRef.once('value')
+      .then(snapshot => {
+
+            snapshot.forEach(childSnapshot => {
+              let post = childSnapshot.val()
+              let postId = childSnapshot.key
+
+              post.id = postId
+
+              this.posts.push(post)
+
+            })
+        })
   },
   methods: {
-  	openPopup: function (prop) {
-  		console.log(prop)
-  	}
+  	openPopup: function (post, event) {
+      if (post.type == 'post') {
+        event.preventDefault()
+        this.showPopup = true 
+        this.selectedPost = post 
+      }
+  	},
+    closePopup: function () {
+      this.showPopup = false
+    }
   }
 }
 </script>

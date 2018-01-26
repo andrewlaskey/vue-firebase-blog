@@ -1,0 +1,79 @@
+<template>
+	<div class="popup" v-bind:class="{'is-open' : showPopup}">
+		<div class="popup-content">
+			<h2 class="popup-title">{{ post.title }}</h2>
+			<div v-html="compiledMarkdown"></div>
+			<button v-on:click="closePopup()">
+				<svg class="icon icon-close"><use xlink:href="#icon-close"></use></svg>
+				<span class="sr-only">Close</span>
+			</button>
+		</div>
+	</div>
+</template>
+
+<script>
+import marked from 'marked'
+
+export default {
+	name: 'popup',
+	props: ['post', 'showPopup', 'closePopup'],
+	data () {
+		return {}
+	},
+	computed: {
+		compiledMarkdown: function () {
+			if (this.post.hasOwnProperty('content')) {
+				return marked(this.post.content, {sanitize: true})
+			} else {
+				return ''
+			}
+		}
+	},
+	methods: {}
+}
+</script>
+
+<style lang="sass">
+	.popup {
+		display: none;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 100vh;
+		overflow: scroll;
+		background: #fff;
+
+		&.is-open {
+			display: block;
+		}
+	}
+
+	.popup-content {
+		position: relative;
+		margin: 0 auto;
+		padding: 4em 0 2em;
+		max-width: 36em;
+	}
+
+	.popup-content button {
+	    position: absolute;
+	    top: 1em;
+	    right: -1em;
+	    background: transparent;
+	    border: none;
+	    font-size: 2em;
+	    cursor: pointer;
+	}
+
+	.popup-title {
+		margin-bottom: 1.5em;
+		text-align: center;
+	}
+
+	.popup-content img {
+		display: block;
+		margin: 0 auto 1.5em;
+		max-width: 100%;
+	}
+</style>
