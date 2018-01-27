@@ -59,18 +59,20 @@ export default {
 	}
 }
 
-.post {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+.is-grid {
+	.post {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
 
-.post:before {
-	content: '';
-	display: block;
-	width: 15px;
-	height: 15px;
-	border-radius: 50%;
+	.post:before {
+		content: '';
+		display: block;
+		width: 15px;
+		height: 15px;
+		border-radius: 50%;
+	}
 }
 
 .fun {
@@ -104,18 +106,24 @@ export default {
 $rollover-width: 300px;
 
 .post-rollover {
-	display: none;
+	display: flex;
 	align-items: center;
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate3d(-50%, -50%, 0);
 	padding: 10px;
-	width: $rollover-width;
-	background: #FFF;
-	border: 1px solid #d3d3d3;
-	border-radius: 50px;
-	box-shadow: 0px 1px 5px 0px #d3d3d3;
+}
+
+.is-grid {
+	.post-rollover {
+		display: none;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate3d(-50%, -50%, 0);
+		width: $rollover-width;
+		background: #FFF;
+		border: 1px solid #d3d3d3;
+		border-radius: 50px;
+		box-shadow: 0px 1px 5px 0px #d3d3d3;
+	}
 }
 
 .post-rollover small {
@@ -166,26 +174,5 @@ $roller-img-width: 56px;
 
 .post-title {
 	margin: 0;
-}
-
-.post-content-wrap {
-	display: none;
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background: #fff;
-	overflow: scroll;
-
-	&.is-open {
-		display: block;
-	}
-}
-
-.post-content {
-	margin: 0 auto;
-	width: 100%;
-	max-width: 48em;
 }
 </style>

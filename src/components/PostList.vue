@@ -1,5 +1,5 @@
 <template>
-	<div class="post-list">
+	<div class="post-list" v-bind:class="{ 'is-grid': grid }">
 		<ul>
 			<li v-for="(post, index) in posts">
 				<post :post="post" :openPopup="openPopup"></post>
@@ -13,7 +13,7 @@ import Post from './Post.vue'
 
 export default {
 	name: 'post-list',
-	props: ['posts', 'openPopup'],
+	props: ['posts', 'openPopup', 'grid'],
 	data () {
 		return {}
 	},
@@ -31,6 +31,13 @@ export default {
 		padding: 0;
 		list-style-type: none;
 		display: flex;
+		flex-direction: column;
+	}
+}
+
+.post-list.is-grid {
+	ul {
+		flex-direction: row;
 		flex-wrap: wrap;
 		justify-content: space-between;
 	}

@@ -36,17 +36,21 @@ export default {
 <style lang="sass">
 	.popup {
 		display: none;
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 100vh;
+		bottom: 0;
 		overflow: scroll;
 		background: #fff;
 
 		&.is-open {
 			display: block;
 		}
+	}
+
+	.is-night .popup {
+		background: #1f1f1f;
 	}
 
 	.popup-content {
@@ -64,6 +68,7 @@ export default {
 	    border: none;
 	    font-size: 2em;
 	    cursor: pointer;
+	    color: inherit;
 	}
 
 	.popup-title {
