@@ -24,6 +24,7 @@
       </div>
       <post-list :posts="posts" :openPopup="openPopup" :grid="showGrid"></post-list>
       <popup :post="selectedPost" :showPopup="showPopup" :closePopup="closePopup"></popup>
+      <p class="footer"><small>Made in San Diego with <a href="https://vuejs.org/" target="_blank">Vue.js</a> and <a href="https://firebase.google.com" target="_blank">Firebase</a>. See the code on <a href="https://github.com/andrewlaskey/vue-firebase-blog" target="_blank">Github</a>.</small></p>
     </div>
   </div>
 </template>
@@ -95,6 +96,8 @@ export default {
 </script>
 
 <style lang="sass">
+@import "../../styles/colors.scss";
+
 body {
 	margin: 0;
 }
@@ -102,19 +105,19 @@ body {
 .blog {
   padding: 1rem;
   min-height: 100vh;
-  background: #fff;
-  color: #333;
+  background: $body-bg-light;
+  color: $body-color-light;
 
   &.is-night {
-    background: #1f1f1f;
-    color: #fff;
+    background: $body-bg-dark;
+    color: $body-color-dark;
   }
 }
 
 .wrap {
 	margin: 0 auto;
 	width: 100%;
-	max-width: 48em;
+	max-width: 32em;
 }
 
 .blog-options {
@@ -147,8 +150,16 @@ body {
       outline: none;
     }
 
+    &:hover,
+    &:focus,
+    &:active,
     &.is-active {
-      background: #ddd;
+      color: $link-color;
     }
+}
+
+.footer {
+  padding: 3rem 0 2rem;
+  text-align: center;
 }
 </style>

@@ -47,15 +47,30 @@ export default {
 </script>
 
 <style lang="sass">
+@import "../../styles/colors.scss";
+
 .post-inner {
 	display: block;
 	position: relative;
 	text-decoration: none;
+	color: $body-color-light;
+
+	&:visited {
+		color: $body-color-light;
+	}
 
 	&:hover,
 	&:focus,
 	&:active {
 		outline: none;
+	}
+}
+
+.is-night .post-inner {
+	color: $body-color-dark;
+
+	&:visited {
+		color: $body-color-dark;
 	}
 }
 
@@ -78,28 +93,28 @@ export default {
 .fun {
 	&:before,
 	.post-rollover-img {
-		background: #F5C8BD;
+		background: $fun;
 	}
 }
 
 .work {
 	&:before,
 	.post-rollover-img {
-		background: #FFE3B0;
+		background: $work;
 	}
 }
 
 .personal {
 	&:before,
 	.post-rollover-img {
-		background: #A9ECA2;
+		background: $personal;
 	}
 }
 
 .thoughts {
 	&:before,
 	.post-rollover-img {
-		background: #F5FFCB;
+		background: $thoughts;
 	}
 }
 
@@ -119,11 +134,16 @@ $rollover-width: 300px;
 		left: 50%;
 		transform: translate3d(-50%, -50%, 0);
 		width: $rollover-width;
-		background: #FFF;
-		border: 1px solid #d3d3d3;
+		background: $body-bg-light;
 		border-radius: 50px;
-		box-shadow: 0px 1px 5px 0px #d3d3d3;
+		box-shadow: 0px 1px 5px 0px $body-color-light;
 	}
+}
+
+.is-night .is-grid .post-rollover {
+	background: $body-bg-dark;
+	box-shadow: none;
+	border: 1px solid;
 }
 
 .post-rollover small {

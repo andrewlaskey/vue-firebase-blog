@@ -58,4 +58,16 @@ export default {
 		font-size: 1.25em;
 		text-decoration: none;
 	}
+
+	@media screen and (max-width: 600px) {
+		.about {
+			flex-wrap: wrap;
+		}
+
+		.about-title,
+		.about-social {
+			width: 100%;
+			text-align: center;
+		}
+	}
 </style>

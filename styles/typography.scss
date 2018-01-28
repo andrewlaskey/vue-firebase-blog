@@ -78,3 +78,11 @@ sup {
 sub {
   bottom: -0.25em;
 }
+
+a {
+  color: $link-color;
+
+  &:visited {
+    color: $link-color;
+  }
+}

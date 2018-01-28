@@ -43,6 +43,9 @@ export default {
 	}
 
 	li {
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
 		margin: 0;
 		width: 25%;
 		height: 128px;

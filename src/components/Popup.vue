@@ -34,6 +34,8 @@ export default {
 </script>
 
 <style lang="sass">
+@import "../../styles/colors.scss";
+
 	.popup {
 		display: none;
 		position: fixed;
@@ -56,19 +58,27 @@ export default {
 	.popup-content {
 		position: relative;
 		margin: 0 auto;
-		padding: 4em 0 2em;
+		padding: 4em 2em 2em;
 		max-width: 36em;
 	}
 
 	.popup-content button {
 	    position: absolute;
 	    top: 1em;
-	    right: -1em;
+	    right: 0;
 	    background: transparent;
 	    border: none;
 	    font-size: 2em;
 	    cursor: pointer;
 	    color: inherit;
+	    outline: none;
+
+	    &:hover,
+	    &:focus,
+	    &:active {
+	    	color: $link-color;
+	    	outline: none;
+	    }
 	}
 
 	.popup-title {
