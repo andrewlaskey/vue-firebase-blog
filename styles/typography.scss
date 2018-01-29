@@ -86,3 +86,13 @@ a {
     color: $link-color;
   }
 }
+
+.is-dark {
+  a {
+  color: $link-color-dark;
+
+  &:visited {
+    color: $link-color-dark;
+  }
+}
+}

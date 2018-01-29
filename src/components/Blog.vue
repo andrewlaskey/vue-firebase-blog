@@ -107,6 +107,7 @@ body {
   min-height: 100vh;
   background: $body-bg-light;
   color: $body-color-light;
+  transition: background 0.15s linear;
 
   &.is-night {
     background: $body-bg-dark;
@@ -155,6 +156,15 @@ body {
     &:active,
     &.is-active {
       color: $link-color;
+    }
+}
+
+.is-dark .blog-option {
+  &:hover,
+    &:focus,
+    &:active,
+    &.is-active {
+      color: $link-color-dark;
     }
 }
 
