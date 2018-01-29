@@ -65,6 +65,12 @@ export default {
 
               this.posts.push(post)
 
+              if (this.posts.length > 1) {
+                this.posts.sort((a, b) => {
+                  return b.postDate - a.postDate
+                })
+              }
+
             })
         })
   },
@@ -119,6 +125,10 @@ body {
 	margin: 0 auto;
 	width: 100%;
 	max-width: 32em;
+
+  iframe {
+    max-width: 100%;
+  }
 }
 
 .blog-options {
