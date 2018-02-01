@@ -74,6 +74,7 @@ export default {
 	}
 }
 
+@media only screen and (min-width: 640px) {
 .is-grid {
 	.post {
 		display: flex;
@@ -88,6 +89,7 @@ export default {
 		height: 15px;
 		border-radius: 50%;
 	}
+}
 }
 
 .fun {
@@ -124,26 +126,33 @@ $rollover-width: 300px;
 	display: flex;
 	align-items: center;
 	padding: 10px;
+	transition: all 0.2s;
 }
 
+@media only screen and (min-width: 640px) {
 .is-grid {
 	.post-rollover {
-		display: none;
+		display: flex;
+		opacity: 0;
+		visibility: hidden;
 		position: absolute;
 		top: 50%;
 		left: 50%;
-		transform: translate3d(-50%, -50%, 0);
+		transform: translate3d(-50%, -50%, 0) scale(0.25);
 		width: $rollover-width;
 		background: $body-bg-light;
 		border-radius: 50px;
 		box-shadow: 0px 1px 5px 0px $body-color-light;
 	}
 }
+}
 
+@media only screen and (min-width: 640px) {
 .is-night .is-grid .post-rollover {
 	background: $body-bg-dark;
 	box-shadow: none;
 	border: 1px solid;
+}
 }
 
 .post-rollover small {
@@ -151,14 +160,18 @@ $rollover-width: 300px;
 	margin-left: 8px;
 }
 
-.post {
+@media only screen and (min-width: 640px) {
+.post-list.is-grid li {
 	&:hover,
 	&:active,
 	&:focus {
 		.post-rollover {
-			display: flex;
+			opacity: 1;
+			visibility: visible;
+			transform: translate3d(-50%, -50%, 0) scale(1);
 		}
 	}
+}
 }
 
 .post-img {

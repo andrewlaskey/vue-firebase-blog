@@ -167,6 +167,13 @@ body {
     &.is-active {
       color: $link-color;
     }
+
+    @media only screen and (max-width: 639px) {
+      &:first-child,
+      &:nth-child(2) {
+        display: none;
+      }
+    }
 }
 
 .is-dark .blog-option {

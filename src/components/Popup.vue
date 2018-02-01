@@ -1,14 +1,16 @@
 <template>
-	<div class="popup" v-bind:class="{'is-open' : showPopup}">
-		<div class="popup-content">
-			<h2 class="popup-title">{{ post.title }}</h2>
-			<div v-html="compiledMarkdown"></div>
-			<button v-on:click="closePopup()">
-				<svg class="icon icon-close"><use xlink:href="#icon-close"></use></svg>
-				<span class="sr-only">Close</span>
-			</button>
+	<transition name="zoom">
+		<div class="popup" v-show="showPopup">
+			<div class="popup-content">
+				<h2 class="popup-title">{{ post.title }}</h2>
+				<div v-html="compiledMarkdown"></div>
+				<button v-on:click="closePopup()">
+					<svg class="icon icon-close"><use xlink:href="#icon-close"></use></svg>
+					<span class="sr-only">Close</span>
+				</button>
+			</div>
 		</div>
-	</div>
+	</transition>
 </template>
 
 <script>
@@ -36,8 +38,24 @@ export default {
 <style lang="sass">
 @import "../../styles/colors.scss";
 
+	.zoom-enter-active {
+	  animation: zoom-in .15s;
+	}
+	.zoom-leave-active {
+	  animation: zoom-in .15s reverse;
+	}
+	@keyframes zoom-in {
+	  0% {
+	    transform: scale(0.25);
+	    opacity: 0;
+	  }
+	  100% {
+	    transform: scale(1);
+	    opacity: 1;
+	  }
+	}
+
 	.popup {
-		display: none;
 		position: fixed;
 		top: 0;
 		left: 0;

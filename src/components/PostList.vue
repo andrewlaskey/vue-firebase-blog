@@ -35,6 +35,7 @@ export default {
 	}
 }
 
+@media only screen and (min-width: 640px) {
 .post-list.is-grid {
 	ul {
 		flex-direction: row;
@@ -50,5 +51,6 @@ export default {
 		width: 25%;
 		height: 128px;
 	}
+}
 }
 </style>
