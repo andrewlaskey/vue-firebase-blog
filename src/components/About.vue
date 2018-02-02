@@ -38,8 +38,6 @@ export default {
 				this.description = siteData.description
 
 				this.socialSites = siteData.social
-
-				console.log(this.socialSites)
 			});
 	}
 }

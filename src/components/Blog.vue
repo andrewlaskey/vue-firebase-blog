@@ -137,8 +137,16 @@ body {
   padding: 1rem 0;
 }
 
-.blog-options-end {
-  margin-left: auto;
+@media screen and (max-width: 600px) {
+  .blog-options {
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  .blog-options-end {
+    margin-left: auto;
+  }
 }
 
 .blog-option {
@@ -168,7 +176,7 @@ body {
       color: $link-color;
     }
 
-    @media only screen and (max-width: 639px) {
+    @media screen and (max-width: 560px) {
       &:first-child,
       &:nth-child(2) {
         display: none;

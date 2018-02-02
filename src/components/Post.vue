@@ -1,7 +1,7 @@
 <template>
-	<div class="post" v-bind:class="post.category">
+	<div class="post" v-bind:class="post.category" >
 		<a v-bind:class="postClass" v-bind:href="openLink" v-on:click="openPopup(post, $event)" target="_blank">
-			<div class="post-rollover">
+			<div class="post-rollover" v-bind:class="{ 'is-active' : highlight }">
 				<div class="post-rollover-img">
 					<img v-bind:src="post.thumbnail" v-bind:alt="post.title" v-if="hasThumbnail">
 				</div>
@@ -16,7 +16,7 @@
 
 export default {
 	name: 'post',
-	props: ['post', 'color', 'openPopup'],
+	props: ['post', 'color', 'openPopup', 'highlight'],
 	data () {
 		return {}
 	},
@@ -49,10 +49,15 @@ export default {
 <style lang="sass">
 @import "../../styles/colors.scss";
 
+.post {
+	width: 100%;
+	height: 100%;
+}
+
 .post-inner {
 	display: block;
-	position: relative;
 	text-decoration: none;
+	position: relative;
 	color: $body-color-light;
 
 	&:visited {
@@ -66,6 +71,7 @@ export default {
 	}
 }
 
+
 .is-night .post-inner {
 	color: $body-color-dark;
 
@@ -74,22 +80,22 @@ export default {
 	}
 }
 
-@media only screen and (min-width: 640px) {
-.is-grid {
-	.post {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
+@media screen and (min-width: 561px) {
+	.is-grid {
+		.post {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
 
-	.post:before {
-		content: '';
-		display: block;
-		width: 15px;
-		height: 15px;
-		border-radius: 50%;
+		.post:before {
+			content: '';
+			display: block;
+			width: 15px;
+			height: 15px;
+			border-radius: 50%;
+		}
 	}
-}
 }
 
 .fun {
@@ -129,30 +135,38 @@ $rollover-width: 300px;
 	transition: all 0.2s;
 }
 
-@media only screen and (min-width: 640px) {
-.is-grid {
-	.post-rollover {
-		display: flex;
-		opacity: 0;
-		visibility: hidden;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate3d(-50%, -50%, 0) scale(0.25);
-		width: $rollover-width;
-		background: $body-bg-light;
-		border-radius: 50px;
-		box-shadow: 0px 1px 5px 0px $body-color-light;
-	}
-}
-}
+@media screen and (min-width: 561px) {
+	.is-grid {
+		.post-rollover {
+			display: flex;
+			opacity: 0;
+			visibility: hidden;
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate3d(-50%, -50%, 0) scale(0.25);
+			width: $rollover-width;
+			background: $body-bg-light;
+			border-radius: 50px;
+			box-shadow: 0px 1px 5px 0px $body-color-light;
 
-@media only screen and (min-width: 640px) {
-.is-night .is-grid .post-rollover {
-	background: $body-bg-dark;
-	box-shadow: none;
-	border: 1px solid;
-}
+			@media only screen and (max-width: 680px) {
+				width: 260px;
+			}
+
+			&.is-active {
+				opacity: 1;
+				visibility: visible;
+				transform: translate3d(-50%, -50%, 0) scale(1);
+			}
+		}
+	}
+
+	.is-night .is-grid .post-rollover {
+		background: $body-bg-dark;
+		box-shadow: none;
+		border: 1px solid;
+	}
 }
 
 .post-rollover small {
@@ -160,19 +174,6 @@ $rollover-width: 300px;
 	margin-left: 8px;
 }
 
-@media only screen and (min-width: 640px) {
-.post-list.is-grid li {
-	&:hover,
-	&:active,
-	&:focus {
-		.post-rollover {
-			opacity: 1;
-			visibility: visible;
-			transform: translate3d(-50%, -50%, 0) scale(1);
-		}
-	}
-}
-}
 
 .post-img {
 	position: absolute;
@@ -207,5 +208,9 @@ $roller-img-width: 56px;
 
 .post-title {
 	margin: 0;
+
+	@media only screen and (max-width: 680px) {
+		font-size: 0.8em;
+	}
 }
 </style>

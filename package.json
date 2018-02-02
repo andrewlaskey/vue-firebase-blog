@@ -25,7 +25,8 @@
     "firebase": "^3.6.8",
     "marked": "^0.3.6",
     "vue": "^2.0.1",
-    "vue-router": "^2.8.1"
+    "vue-router": "^2.8.1",
+    "vue2-touch-events": "^1.0.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
