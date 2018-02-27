@@ -1,6 +1,3 @@
-// The following line loads the standalone build of Vue instead of the runtime-only build,
-// so you don't have to do: import Vue from 'vue/dist/vue'
-// This is done with the browser options. For the config, see package.json
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import {CONFIG} from '../private.config.js'
@@ -13,19 +10,18 @@ const fbApp = firebase.initializeApp(CONFIG.FIREBASE)
 
 Vue.use(VueRouter)
 
-const routes = [
-	{ 
-		path: '/',
-		component: Blog
-	},
-	{
-		path: '/add',
-		component: AddPost
-	}
-]
-
 const router = new VueRouter({
-	routes
+  mode: 'history',
+  routes: [
+    { 
+      path: '/',
+      component: Blog
+    },
+    {
+      path: '/add',
+      component: AddPost
+    }
+  ]
 })
 
 let app = new Vue({ // eslint-disable-line no-new
@@ -33,6 +29,6 @@ let app = new Vue({ // eslint-disable-line no-new
   router,
   template: '<app></app>',
   components: {
-  	App
+    App
   }
 })

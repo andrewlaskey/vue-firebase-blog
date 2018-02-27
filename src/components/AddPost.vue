@@ -196,36 +196,38 @@ export default {
     createAuthListener: function () {
       let _this = this
 
-      firebase.auth().onAuthStateChanged(function(user) {
+      firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
           _this.userSignedIn(user)
         } else {
-        // No user is signed in.
+          // No user is signed in.
         }
       })
     },
     trySignIn: function () {
-      let _this = this
-
-      firebase.auth().signInWithEmailAndPassword(this.userEmail, this.password).catch(function(error) {
-        _this.handleError(error.message)
-      })
+      firebase
+        .auth()
+        .signInWithEmailAndPassword(this.userEmail, this.password)
+        .catch((error) => {
+          this.handleError(error.message)
+        })
     },
     trySignOut: function () {
-      let _this = this;
-
-      firebase.auth().signOut().then(function() {
-        // Sign-out successful.
-        _this.reset()
-      }).catch(function(error) {
-        // An error happened.
-        _this.handleError(error.message)
-      });
+      firebase
+        .auth()
+        .signOut()
+        .then(() => {
+          // Sign-out successful.
+          this.reset()
+        }).catch((error) => {
+          // An error happened.
+          this.handleError(error.message)
+        })
     },
     createPost: function () {
-      let _this = this
-
-      let newPostRef = firebase.database().ref('posts')
+      let newPostRef = firebase
+        .database()
+        .ref('posts')
         .push({
           title: this.title,
           category: this.category,
@@ -235,51 +237,53 @@ export default {
           postDate: Date.now()
         })
 
-      firebase.database().ref('categories/' + this.category + '/' + newPostRef.key).set(true);
+      firebase
+        .database()
+        .ref('categories/' + this.category + '/' + newPostRef.key)
+        .set(true)
 
       this.success = true
     },
     onFileChange: function (e) {
-      var input = event.target;
-        // Ensure that you have a file before attempting to read it
-        if (input.files && input.files[0]) {
-          this.inputFile = input.files[0];
-          this.fileName = this.inputFile.name;
-        }
+      const input = event.target
+      
+      if (input.files && input.files[0]) {
+        this.inputFile = input.files[0]
+        this.fileName = this.inputFile.name
+      }
     },
     addImageToList: function (url) {
-      this.fileUrls.push(url);
+      this.fileUrls.push(url)
     },
     uploadFile: function () {
-      let _this = this
-
       if (this.inputFile.name.length === 0) {
         return
       }
 
-      let storageRef = firebase.storage().ref()
-      
-      let uploadTask = storageRef.child('images/' + this.inputFile.name).put(this.inputFile);
+      const storageRef = firebase.storage().ref()
+      const uploadTask = storageRef.child('images/' + this.inputFile.name).put(this.inputFile)
 
-      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, // or 'state_changed'
-        function(snapshot) {
-          // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
-          let progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+      uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+        (snapshot) => {
+          const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          
           console.log('Upload is ' + progress + '% done');
+          
           switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED: // or 'paused'
+            case firebase.storage.TaskState.PAUSED:
               console.log('Upload is paused');
               break;
-            case firebase.storage.TaskState.RUNNING: // or 'running'
+            case firebase.storage.TaskState.RUNNING:
               console.log('Upload is running');
               break;
           }
-        }, function(error) {
-          _this.handleError(error.message);
-        }, function() {
+
+        }, (error) => {
+          this.handleError(error.message)
+        }, () => {
           // Upload completed successfully, now we can get the download URL
-          _this.addImageToList(uploadTask.snapshot.downloadURL)
-      })
+          this.addImageToList(uploadTask.snapshot.downloadURL)
+        })
     }
   }
 }

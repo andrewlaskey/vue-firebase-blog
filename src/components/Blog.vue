@@ -55,24 +55,23 @@ export default {
     const postsRef = firebase.database().ref('posts')
 
     postsRef.once('value')
-      .then(snapshot => {
+      .then((snapshot) => {
+          snapshot.forEach((childSnapshot) => {
+            const post = childSnapshot.val()
+            const postId = childSnapshot.key
 
-            snapshot.forEach(childSnapshot => {
-              let post = childSnapshot.val()
-              let postId = childSnapshot.key
+            post.id = postId
 
-              post.id = postId
+            this.posts.push(post)
 
-              this.posts.push(post)
+            if (this.posts.length > 1) {
+              this.posts.sort((a, b) => {
+                return b.postDate - a.postDate
+              })
+            }
 
-              if (this.posts.length > 1) {
-                this.posts.sort((a, b) => {
-                  return b.postDate - a.postDate
-                })
-              }
-
-            })
-        })
+          })
+      })
   },
   methods: {
   	openPopup: function (post, event) {
