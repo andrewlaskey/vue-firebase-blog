@@ -23,7 +23,7 @@ export default {
     return {}
   },
   computed: {
-    compiledMarkdown: function () {
+    compiledMarkdown () {
       if (this.post.hasOwnProperty('content')) {
         return marked(this.post.content)
       } else {

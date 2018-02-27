@@ -173,27 +173,27 @@ export default {
       fileUrls: []
     }
   },
-  created: function () {
+  created () {
     this.createAuthListener()
   },
   methods: {
-    handleError: function (msg) {
+    handleError (msg) {
       this.hasError = true
       this.errorMessage = msg
     },
-    reset: function () {
+    reset () {
       this.loggedIn = false
       this.error =  false
       this.errorMessage = ''
       this.userEmail = ''
       this.password = ''
     },
-    userSignedIn: function (user) {
+    userSignedIn (user) {
       this.loggedIn = true
       this.error = false
       this.errorMessage = ''
     },
-    createAuthListener: function () {
+    createAuthListener () {
       let _this = this
 
       firebase.auth().onAuthStateChanged(function (user) {
@@ -204,7 +204,7 @@ export default {
         }
       })
     },
-    trySignIn: function () {
+    trySignIn () {
       firebase
         .auth()
         .signInWithEmailAndPassword(this.userEmail, this.password)
@@ -212,7 +212,7 @@ export default {
           this.handleError(error.message)
         })
     },
-    trySignOut: function () {
+    trySignOut () {
       firebase
         .auth()
         .signOut()
@@ -224,7 +224,7 @@ export default {
           this.handleError(error.message)
         })
     },
-    createPost: function () {
+    createPost () {
       let newPostRef = firebase
         .database()
         .ref('posts')
@@ -244,7 +244,7 @@ export default {
 
       this.success = true
     },
-    onFileChange: function (e) {
+    onFileChange (e) {
       const input = event.target
       
       if (input.files && input.files[0]) {
@@ -252,10 +252,10 @@ export default {
         this.fileName = this.inputFile.name
       }
     },
-    addImageToList: function (url) {
+    addImageToList (url) {
       this.fileUrls.push(url)
     },
-    uploadFile: function () {
+    uploadFile () {
       if (this.inputFile.name.length === 0) {
         return
       }

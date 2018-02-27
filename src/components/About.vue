@@ -26,7 +26,7 @@ export default {
       socialSites: {}
     }
   },
-  created: function () {
+  created () {
     const siteRef = firebase.database().ref('site')
 
     siteRef.once('value')

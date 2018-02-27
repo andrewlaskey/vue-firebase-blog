@@ -42,7 +42,7 @@ export default {
     PostList,
     Popup
   },
-  data() {
+  data () {
     return {
       showGrid: true,
       nightVision: false,
@@ -51,7 +51,7 @@ export default {
       showPopup: false
     }
   },
-  created: function () {
+  created () {
     const postsRef = firebase.database().ref('posts')
 
     postsRef.once('value')
@@ -74,26 +74,26 @@ export default {
       })
   },
   methods: {
-  	openPopup: function (post, event) {
+  	openPopup (post, event) {
       if (post.type == 'post') {
         event.preventDefault()
         this.showPopup = true 
         this.selectedPost = post 
       }
   	},
-    closePopup: function () {
+    closePopup () {
       this.showPopup = false
     },
-    setGridView: function () {
+    setGridView () {
       this.showGrid = true
     },
-    setListView: function () {
+    setListView () {
       this.showGrid = false
     },
-    setDayTime: function () {
+    setDayTime () {
       this.nightVision = false
     },
-    setNightTime: function () {
+    setNightTime () {
       this.nightVision = true
     },
   }

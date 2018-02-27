@@ -21,17 +21,17 @@ export default {
     return {}
   },
   computed: {
-    postClass: function () {
+    postClass () {
       return 'post-inner post-inner-' + this.post.type
     },
-    openLink: function () {
+    openLink () {
       if (this.post.type === 'post') {
         return '#'
       }
       
       return this.post.content
     },
-    hasThumbnail: function () {
+    hasThumbnail () {
       if (typeof this.post.thumbnail === 'undefined') {
         return false
       }
