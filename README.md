@@ -1,24 +1,10 @@
 # vue-firebase-blog
 
-> A Vue.js project
+This is my current personal blog/portfolio site at [andrewlaskey.com](https://andrewlaskey.com/). It is a single-page app built with Vue.js, Vue Router, Firebase, and using [Vueify](https://github.com/vuejs/vueify) as the project base. The Add Post view also uses the [Bulma](https://bulma.io/) CSS framework.
 
-## Build Setup
+## To Do
 
-``` bash
-# install dependencies
-npm install
-
-# serve with hot reload at localhost:8080
-npm run dev
-
-# build for production with minification
-npm run build
-
-# lint all *.js and *.vue files
-npm run lint
-
-# run unit tests
-npm test
-```
-
-For more information see the [docs for vueify](https://github.com/vuejs/vueify).
+- [ ] Add ability for logged in user to edit posts
+- [ ] Add routes for posts to router
+- [ ] Add category filter
+- [ ] Tests
